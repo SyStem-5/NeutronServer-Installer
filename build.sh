@@ -17,29 +17,6 @@ rsync --info=progress2 source/install.sh $build_dir
 
 rsync --info=progress2 source/docker_run_neutron_updateserver.sh $build_dir
 
-
-# rsync --info=progress2 \
-#     ../NeutronServer/Pipfile $build_dir/neutron_updateserver/django/
-
-# rsync --info=progress2 \
-#     ../NeutronServer/Pipfile.lock $build_dir/neutron_updateserver/django/
-
-# rsync --info=progress2 \
-#     ../NeutronServer/manage.py $build_dir/neutron_updateserver/django/app/
-
-# rsync -a --info=progress2 \
-#     ../NeutronServer/NeutronServer $build_dir/neutron_updateserver/django/app/ \
-#     --exclude __pycache__
-
-# rsync -a --info=progress2 \
-#     ../NeutronServer/static $build_dir/neutron_updateserver/django/app/
-
-# rsync -a --info=progress2 \
-#     ../NeutronServer/templates $build_dir/neutron_updateserver/django/app/
-
-# rsync -a --info=progress2 \
-#     ../NeutronServer/update_manager $build_dir/neutron_updateserver/django/app/
-
 rsync -a --info=progress2 ../NeutronServer/ $build_dir/neutron_updateserver/django/app/ \
     --exclude .vscode \
     --exclude .git \
