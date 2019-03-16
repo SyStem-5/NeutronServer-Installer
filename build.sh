@@ -11,7 +11,7 @@ rsync -a --info=progress2 source/neutron_updateserver $build_dir
 rsync -a --info=progress2 source/ufw_setup $build_dir
 
 rsync -a --info=progress2 source/mosquitto $build_dir
-git clone https://github.com/SyStem-5/Mosquitto-Auth-DockerImage.git $build_dir/mosquitto/mosquitto_docker
+git clone https://github.com/SyStem-5/Mosquitto-Auth-DockerImage.git --recurse-submodules $build_dir/mosquitto/mosquitto_docker
 
 rsync --info=progress2 source/install.sh $build_dir
 
