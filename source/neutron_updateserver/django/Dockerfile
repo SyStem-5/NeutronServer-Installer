@@ -18,8 +18,8 @@ RUN apk update \
 RUN pip install --upgrade pip \
     && pip install pipenv
 
-COPY ./Pipfile /usr/src/djangoapp/Pipfile
-COPY ./Pipfile.lock /usr/src/djangoapp/Pipfile.lock
+COPY app/Pipfile /usr/src/djangoapp/Pipfile
+COPY app/Pipfile.lock /usr/src/djangoapp/Pipfile.lock
 RUN pipenv install --ignore-pipfile \
     && apk del build-deps
 #--system --dev 
