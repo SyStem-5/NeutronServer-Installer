@@ -4,7 +4,7 @@ services:
   django:
     build: ./django
     restart: on-failure
-    command: pipenv run daphne NeutronServer.asgi:application --bind 0.0.0.0
+    command: daphne NeutronServer.asgi:application --bind 0.0.0.0
     container_name: neutron_webinterface_django
     volumes:
       - static_volume:/usr/src/djangoapp/staticfiles

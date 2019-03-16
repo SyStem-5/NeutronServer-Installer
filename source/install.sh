@@ -96,7 +96,7 @@ read -p $'\e[1m\e[44mNeutron Server Installer\e[0m: Set Neutron Update Server Em
 pass=$(strings /dev/urandom | grep -o '[[:alnum:]]' | head -n 10 | tr -d '\n'; echo)
 
 docker exec -i -t $(sudo docker ps -aqf "name=neutron_webinterface_django") /bin/ash -c \
-"echo \"from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.create_superuser('$username', '$email', '$pass')\" | pipenv run python manage.py shell"
+"echo \"from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.create_superuser('$username', '$email', '$pass')\" | python manage.py shell"
 
 read -p $'\e[1m\e[44mNeutron Server Installer\e[0m: \e[4mIT IS NOT RECOMMENDED TO KEEP A DIGITAL COPY OF THIS PASSWORD!\e[0m \n Neutron Update Server superuser password: '"[$pass]."$'\nPress [ENTER] to continue. ' -r
 

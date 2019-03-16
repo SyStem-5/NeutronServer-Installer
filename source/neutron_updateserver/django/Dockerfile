@@ -8,30 +8,21 @@ ENV PYTHONUNBUFFERED 1
 # Set work directory
 WORKDIR /usr/src/djangoapp
 
-# Install psycopg2
-RUN apk update \
-    && apk add --virtual build-deps gcc python3-dev musl-dev  \
-    && apk add postgresql-dev
-#   && apk add tree \
-
-# Install dependencies
-RUN pip install --upgrade pip \
-    && pip install pipenv
-
-COPY app/Pipfile /usr/src/djangoapp/Pipfile
-COPY app/Pipfile.lock /usr/src/djangoapp/Pipfile.lock
-RUN pipenv install --ignore-pipfile \
-    && apk del build-deps
-#--system --dev 
+# Copy project
+COPY ./app /usr/src/djangoapp/
 
 # Copy entrypoint.sh
 COPY ./entrypoint.sh /entrypoint.sh
 
-# Copy project
-COPY ./app /usr/src/djangoapp/
-
-#RUN tree -a /usr/src/
-
-RUN chmod +x /entrypoint.sh
+# Install psycopg2
+RUN apk update \
+    && apk add --virtual build-deps gcc python3-dev musl-dev  \
+    && apk add postgresql-dev \
+    && pip install --upgrade pip \
+    && pip install pipenv \
+    && pipenv install --ignore-pipfile --system \
+    && apk del build-deps \
+    && chmod +x /entrypoint.sh
+#   && apk add tree \
 
 ENTRYPOINT ["/entrypoint.sh"]
