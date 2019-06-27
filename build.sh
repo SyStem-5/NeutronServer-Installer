@@ -11,7 +11,16 @@ rsync -a --info=progress2 source/neutron_updateserver $build_dir
 rsync -a --info=progress2 source/ufw_setup $build_dir
 
 rsync -a --info=progress2 source/mosquitto $build_dir
-git clone https://github.com/SyStem-5/Mosquitto-Auth-DockerImage.git --recurse-submodules $build_dir/mosquitto/mosquitto_docker
+rsync -a --info=progress2 ../Mosquitto-Auth-DockerImage/ $build_dir/mosquitto/mosquitto_docker \
+    --exclude .vscode \
+    --exclude .git \
+    --exclude .gitignore \
+    --exclude .gitmodules
+rsync -a --info=progress2 ../Mosquitto-Auth-Plugin/ $build_dir/mosquitto/mosquitto_docker/Mosquitto-Auth-Plugin \
+    --exclude .vscode \
+    --exclude .git \
+    --exclude .gitignore \
+    --exclude .gitmodules
 
 rsync --info=progress2 source/install.sh $build_dir
 
