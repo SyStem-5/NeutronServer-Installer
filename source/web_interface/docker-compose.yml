@@ -5,7 +5,7 @@ services:
     build: ./django
     restart: on-failure
     command: daphne NeutronServer.asgi:application --bind 0.0.0.0
-    container_name: neutron_webinterface_django
+    container_name: webinterface_django
     volumes:
       - static_volume:/usr/src/djangoapp/staticfiles
 #      - media_volume:/usr/src/djangoapp/mediafiles
@@ -33,10 +33,13 @@ services:
   nginx:
     build: ./nginx
     restart: on-failure
-    container_name: neutron_webinterface_nginx
+    container_name: webinterface_nginx
     volumes:
       - static_volume:/usr/src/djangoapp/staticfiles
 #      - media_volume:/usr/src/djangoapp/mediafiles
+    secrets:
+      - site_crt
+      - site_key
     ports:
       - 80:80
       - 443:443
@@ -48,14 +51,14 @@ services:
   redis:
     image: redis:5.0-alpine
     restart: on-failure
-    container_name: lsoc_webinterface_redis
+    container_name: webinterface_redis
     networks:
       - redis_network
 
   postgres:
     image: postgres:11-alpine
     restart: on-failure
-    container_name: neutron_webinterface_postgres
+    container_name: webinterface_postgres
     volumes:
       - postgres_volume:/var/lib/postgresql/data
     secrets:
@@ -82,10 +85,13 @@ volumes:
 #  media_volume:
 
 secrets:
-  secret_key: 
+  secret_key:
     file: secret_key.txt
-  sql_user: 
+  sql_user:
     file: sql_user.txt
-  sql_pass: 
+  sql_pass:
     file: sql_pass.txt
-    
+  site_crt:
+    file: site.crt
+  site_key:
+    file: site.key
