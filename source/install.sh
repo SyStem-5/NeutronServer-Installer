@@ -72,6 +72,8 @@ if ./web_interface/install.sh $neutron_base_loc --self_signed; then
     mkdir /etc/mosquitto
     cp -n mosquitto/mosquitto.conf /etc/mosquitto
     sed -i -e 's/<DB_PASSWORD>/'$(<$neutron_base_loc/webinterface_docker/sql_pass.txt)'/g' /etc/mosquitto/mosquitto.conf
+    chown root:root /etc/mosquitto
+    chmod 660 /etc/mosquitto
 fi
 
 #Run the Mosquitto Broker installation
