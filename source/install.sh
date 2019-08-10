@@ -43,7 +43,7 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
     crontab -r
 fi
 
-neutron_base_loc=/etc/NeutronServer
+neutron_base_loc=/etc/LSOCWebInterface
 
 rm -rf $neutron_base_loc
 mkdir -p $neutron_base_loc
@@ -68,7 +68,7 @@ else
 fi
 
 #Run the Web Interface installation
-if ./web_interface/install.sh $neutron_base_loc --self_signed; then
+if ./web_interface/install.sh --self_signed; then
     mkdir /etc/mosquitto
     cp -n mosquitto/mosquitto.conf /etc/mosquitto
     sed -i -e 's/<DB_PASSWORD>/'$(<$neutron_base_loc/webinterface_docker/sql_pass.txt)'/g' /etc/mosquitto/mosquitto.conf
